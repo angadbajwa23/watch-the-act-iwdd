@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "iwdd"
+version = "1.0.0"
+description = "Watch the Act, Not the Scene: detecting and timing illegal waste dumping (WACV 2027 Workshops)"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.10"
+# the metric, the folds, the audit and window-mass decoding need only these
+dependencies = ["numpy>=1.24", "scipy>=1.10", "scikit-learn>=1.3"]
+
+[project.optional-dependencies]
+# the detector itself (inference, feature extraction, training)
+model = ["torch>=2.3", "torchvision>=0.18", "pillow", "transformers>=5.16,<5.18", "opencv-python-headless>=4.9", "safetensors", "huggingface_hub"]
+test = ["pytest"]
+
+[tool.setuptools]
+packages = ["iwdd"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

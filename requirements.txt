@@ -1,0 +1,14 @@
+# Exact versions the released results were verified with (Python 3.12, CUDA 12.8, NVIDIA RTX PRO 4500 Blackwell).
+# Install torch for your CUDA first (https://pytorch.org), e.g.
+#   pip install torch==2.11.0 torchvision==0.26.0 --index-url https://download.pytorch.org/whl/cu128
+torch==2.11.0
+torchvision==0.26.0   # the SigLIP2 image processor's backend (must be torchvision, not PIL)
+pillow==12.3.0
+transformers==5.17.0
+huggingface_hub==1.33.0
+safetensors==0.8.0
+opencv-python-headless==5.0.0.93
+numpy==2.5.2
+scipy==1.18.1
+scikit-learn==1.9.1
+pytest==9.1.1

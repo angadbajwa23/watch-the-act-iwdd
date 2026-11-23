@@ -1,0 +1,8 @@
+weights/
+weights_*/
+features/
+dist/
+*.zip
+__pycache__/
+*.egg-info/
+.pytest_cache/

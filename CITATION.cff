@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the paper below and the MIVIA-IWDD dataset."
+title: "Watch the Act, Not the Scene: Detecting and Timing Illegal Waste Dumping"
+authors:
+  - family-names: Kale
+    given-names: Shreya Ajay
+  - family-names: Bajwa
+    given-names: Angad Ripudaman Singh
+license: MIT
+preferred-citation:
+  type: conference-paper
+  title: "Watch the Act, Not the Scene: Detecting and Timing Illegal Waste Dumping"
+  authors:
+    - family-names: Kale
+      given-names: Shreya Ajay
+    - family-names: Bajwa
+      given-names: Angad Ripudaman Singh
+  collection-title: "Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision (WACV) Workshops"
+  year: 2027
+references:
+  - type: article
+    title: "Benchmarking illegal waste dumping detection: A public video dataset and a reference baseline"
+    authors:
+      - family-names: Greco
+        given-names: Antonio
+      - family-names: Ricciardi
+        given-names: Andrea Vincenzo
+      - family-names: Sansone
+        given-names: Carlo
+      - family-names: Vento
+        given-names: Bruno
+    journal: "Image and Vision Computing"
+    volume: 174
+    start: 106125
+    year: 2026
+    doi: "10.1016/j.imavis.2026.106125"
