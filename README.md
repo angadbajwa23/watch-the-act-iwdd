@@ -31,8 +31,7 @@ happens in it: on unseen cameras, a classifier that sees only the first frame do
 F1 in the 2027 window, except the hidden test, which the organizers scored in the 2026 window `[g-5, g+10]`. The
 validation number comes from a system trained on the 399 training videos and run once; 61 of those 100 videos come
 from camera sites seen in training, so we made every design choice on the camera-disjoint cross-validation. Most of the
-drop on the hidden test is precision: false alarms in new scenes remain the main open problem (see
-[Limitations](#limitations)).
+drop on the hidden test is precision: false alarms in new scenes remain the main open problem.
 
 ## Install
 
@@ -74,31 +73,6 @@ Then run:
 ```bash
 python -m iwdd.audit --predictions my_oof.csv --curves my_curves.npz
 ```
-
-Our submitted system (seed 42) gives:
-```
-videos 399 | F1 0.808 (P 0.83, R 0.78) | TP 156, mistimed 9, missed 34, false alarms 22
-1. beats the scene?    scene-only floor 0.687 -> F1 - floor +0.121
-2. follows the scene?  rho on normal videos 0.77  (lower is better)
-3. same-camera FAs     19% of 81 same-camera vs 6% of 119 other | AUROC vs same-camera 0.900, vs other 0.981
-4. knows when?         partial r 0.66 | hit rate 0.95 vs 'midpoint + 2 s' 0.85 on the same videos
-5. sees the act?       within-video AUROC 0.73 over 133 videos
-```
-
-| Paper, Table 1 (means over 3 seeds) | F1 | vs. floor | ρ scene ↓ | false alarms: same camera / other | AUROC vs. same camera ↑ | partial r ↑ | act AUROC ↑ |
-|---|---|---|---|---|---|---|---|
-| Baseline, frozen (reproduced)* | 0.575 | −0.131 | 0.69 | 62% / 10% | 0.70 | 0.03 | 0.64 |
-| E0 appearance detector | 0.710 | +0.023 | 0.85 | 44% / 5% | 0.80 | 0.25 | 0.64 |
-| V-JEPA action detector | 0.724 | +0.037 | 0.24 | 26% / 13% | 0.84 | 0.80 | 0.73 |
-| Full system (final) | 0.810 | +0.123 | 0.76 | 33% / 4% | 0.88 | 0.68 | 0.73 |
-
-\* The baseline rows were computed on an earlier partition built the same way (scene-only floor 0.706 there).
-
-What the checks mean: (1) F1 minus the scene-only floor on the same folds; (2) on normal videos, the rank correlation
-between your score and the first-frame scene score; (3) false alarms on normal videos from cameras that also film
-dumping, plus the threshold-free AUROC; (4) whether your timestamp follows the onset beyond "the middle of the video";
-(5) whether frame scores rise during the act compared with earlier frames of the same video. The docstring of
-[`iwdd/audit.py`](iwdd/audit.py) and Sec. 4 of the paper give the details.
 
 ## 3. Window-mass decoding
 
@@ -161,15 +135,6 @@ Reproducibility, as we verified it on one GPU (RTX PRO 4500 Blackwell):
 - Re-extracted SigLIP2 features agree with ours only up to float16 GPU noise (cosine ≥ 0.9995), so a full retrain
   gives slightly different E0 members.
 - The inference code reproduces the submitted system's scores and answers bit for bit.
-
-## Limitations
-
-- On the hidden test set from new locations, precision fell to 0.63. The fused score still follows the scene
-  (ρ = 0.76 on normal videos), and a new place that looks like a dumping spot can trigger false alarms that no
-  threshold tuned on 499 videos anticipates.
-- It misses acts that stay tiny even in a zoomed tile, and sometimes fires when people move around parked cars.
-- Everything was developed on one dataset (about 70 training cameras); no second dumping benchmark was available.
-- It is a research prototype. It is not suitable for automated enforcement; every alarm needs human review.
 
 ## Citation
 
